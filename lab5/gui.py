@@ -1,3 +1,21 @@
+import os
+
+os.system("apt list --installed 2>/dev/null 1>/dev/null> out.txt")
+file = open('out.txt', 'r')
+l = file.readlines()
+for el in l:
+    if 'python3-pip' in el:
+        break
+else:
+    os.system('sudo apt-get install python3-pip 2>/dev/null 1>/dev/null')
+for el in l:
+    if 'python3-tk' in el:
+        break
+else:
+    os.system('sudo apt-get install python3-tk 2>/dev/null 1>/dev/null')
+os.remove("out.txt")
+
+
 def install_and_import(package):
     import importlib
     try:
@@ -7,6 +25,8 @@ def install_and_import(package):
         pip.main(['install', package])
     finally:
         globals()[package] = importlib.import_module(package)
+
+
 install_and_import('random')
 install_and_import('tkinter')
 install_and_import('sys')
@@ -17,7 +37,6 @@ import tkinter as tk
 import sys
 import time
 from tkinter import *
-
 global machine, human, button1, button2, button3, button4, button5, button6, button7, button8, button9, button, \
     initial, configuration, root, depth, next_step
 
